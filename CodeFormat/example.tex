@@ -1,0 +1,263 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb}
+\usepackage{amsthm}
+\usepackage{geometry}
+\usepackage{hyperref}
+\geometry{a4paper, margin=0.8in, top=0.5in}
+\title{Rendering Codes Example Document}
+\author{Marcobisky}
+\date{\today}
+
+% Math environments
+\newtheorem{theorem}{Theorem}
+\newtheorem{definition}{Definition}
+\newtheorem{lemma}{Lemma}
+
+% ++++++++++++++++++++++++++Code global config begin++++++++++++++++++++++++++
+% Code block universal settings, all lstdefinestyle must appeared below this block!
+\usepackage{listings}
+% use txtt global font
+\usepackage[T1]{fontenc} % Add font options
+\DeclareFixedFont{\codefont}{T1}{txtt}{m}{n}{12} % other options: txtt -> cmtt, pcr, fvm, zi4; m -> bx, n; 12 -> (fontsize)
+
+% Define colors
+\usepackage{color}
+\usepackage{tikz} % colorlet need this
+\definecolor{commentgreen}{rgb}{0,0.5,0}
+\colorlet{framegray}{black!40}
+\definecolor{stringred}{rgb}{0.6,0,0}
+
+% Global config
+\lstset{
+    backgroundcolor=\color{gray!7},
+    numbers = left, % show line number on the left
+    numberstyle = \small\color{framegray}, % line number color
+    basicstyle = \codefont, % code font
+    columns = flexible, % make the spacing between characters compact
+    keepspaces = true,  % keeps spaces in text, useful for keeping indentation of code (needs columns=flexible)
+    % captionpos = b, % caption at the bottom
+    commentstyle = \color{commentgreen}, % comment color
+    frame = single, % display frame
+    stringstyle = \color{stringred}, % Strings in red
+    rulecolor = \color{framegray}, % frame color
+    showstringspaces = false, % don't mark spaces in strings
+    breaklines = true, % break long lines
+    tabsize = 4, % tab size
+}
+% +++++++++++++++++++++++++++Code global config end+++++++++++++++++++++++++++
+
+% ++++++++++++++++++++++++++Python local config begin++++++++++++++++++++++++++
+% Must placed below the global settings
+% Custom colors for python only
+\definecolor{emphblue}{rgb}{0,0,0.5}
+\definecolor{keywordpink}{RGB}{128, 0, 128}
+% this will override the global settings
+\lstdefinestyle{custompython}{
+    language = Python,
+    emph = {__init__}, % Custom highlighting
+    emphstyle = \color{emphblue},  % Highlighted words in deepblue
+    keywordstyle = \color{keywordpink},
+    upquote = true, % single quotes in straight quote
+}
+% ++++++++++++++++++++++++++++Python local config end++++++++++++++++++++++++++++
+
+% ++++++++++++++++++++++++++MATLAB local config begin++++++++++++++++++++++++++
+% Must placed below the global settings
+% font and keyword need matlab-prettifier package
+\usepackage[numbered,framed]{matlab-prettifier}
+% this will override the global settings
+\lstdefinestyle{custommatlab}{
+    language = Matlab,
+    style = Matlab-editor,
+    basicstyle = \mlttfamily, % This font looks nice
+    mlshowsectionrules = true, % show a line when encounter '%%'
+    emph = {on, off}, % Custom highlighting
+    emphstyle = \color{stringred},  % Highlighted words in stringred
+    rulecolor = \color{framegray}, % reclaim frame color (because 'style = Matlab-editor' will overwrite the frame color defined in lstset)
+}
+% +++++++++++++++++++++++++++MATLAB local config end+++++++++++++++++++++++++++
+
+% ++++++++++++++++++++++++++Bash local config begin++++++++++++++++++++++++++
+% Must placed below the global settings
+% this will override the global settings
+\lstdefinestyle{custombash}{
+    language = bash,
+    basicstyle = \ttfamily, % Monospaced font
+    keywordstyle = \color{blue}\bfseries, % Keywords in bold blue
+    stringstyle = \color{green}, % Strings in green
+    commentstyle = \color{gray}, % Comments in gray
+    morekeywords = {sudo, ls, cd, rm, mkdir}, % Add common Bash commands
+}
+% +++++++++++++++++++++++++++Bash local config end+++++++++++++++++++++++++++
+
+% ++++++++++++++++++++++++++C++ local config begin++++++++++++++++++++++++++
+% Must placed below the global settings
+% Custom colors for C/C++ only
+\colorlet{stringmauve}{red!60!blue}
+% this will override the global settings
+\lstdefinestyle{customcpp}{
+    language = c++,
+    keywordstyle = \color{blue}, % keywords in blue
+    extendedchars = true, % allows for more characters
+}
+% +++++++++++++++++++++++++++C++ local config end+++++++++++++++++++++++++++
+
+
+\begin{document}
+\maketitle
+\begin{abstract}
+    This is an example document to demonstrate different code highlighting effects.
+\end{abstract}
+
+\section{Python highlighting}
+
+\begin{lstlisting}[caption={This is a literal python code}, label={lst:python1}, language=Python, style=custompython]
+# Python code snippet to demonstrate various grammar and keywords
+
+import math  # Importing a library
+
+class MyClass:
+    """This is a docstring for a sample class."""
+    def __init__(self, value=0):
+        self.value = value  # Instance variable
+    
+    def calculate(self, x):
+        """Method that uses a conditional, loop, and a lambda function."""
+        result = [y ** 2 for y in range(x) if y % 2 == 0]  # List comprehension
+        return list(map(lambda z: math.sqrt(z + self.value), result))  # Lambda and map
+
+def main():
+    try:
+        obj = MyClass(value=10)
+        print("Square roots:", obj.calculate(5))
+    except ValueError as e:
+        print(f"An error occurred: {e}")
+    finally:
+        print("Execution finished!")
+
+# Running the main function
+if __name__ == "__main__":
+    main()
+\end{lstlisting}
+
+\lstinputlisting[caption={This is a python code from file}, label={lst:python2} language=Python, style=custompython]{examplePython.py}
+
+\section{MATLAB highlighting}
+
+\begin{lstlisting}[caption={This is a literal MATLAB code}, label={lst:matlab1}, language=Matlab, style=custommatlab]
+% MATLAB code snippet to demonstrate various grammar and keywords
+
+classdef MyClass
+    % A sample class demonstrating properties, methods, and control flow
+    
+    properties
+        Value % Class property
+    end
+    
+    methods
+        function obj = MyClass(val)
+            % Constructor method
+            if nargin > 0
+                obj.Value = val;
+            else
+                obj.Value = 0;
+            end
+        end
+        
+        function result = calculate(obj, n)
+            % Method that performs a calculation using a loop and conditionals
+            result = zeros(1, n);
+            for i = 1:n
+                if mod(i, 2) == 0
+                    result(i) = sqrt(i + obj.Value); % Square root for even numbers
+                else
+                    result(i) = i^2; % Square for odd numbers
+                end
+            end
+        end
+    end
+end
+
+% Script to use the class
+clc; clear;
+try
+    obj = MyClass(10);
+    disp('Results:');
+    disp(obj.calculate(5));
+catch ME
+    disp(['Error occurred: ', ME.message]);
+end
+\end{lstlisting}
+
+\lstinputlisting[caption={This is a MATLAB code from file}, label={lst:matlab2}, language=Matlab, style=custommatlab]{exampleMatlab.m}
+
+\section{Bash highlighting}
+
+\begin{lstlisting}[language=bash, style=custombash]
+$ sudo apt-get update
+$ sudo apt-get install python3
+\end{lstlisting}
+
+\section{C++ highlighting}
+
+\begin{lstlisting}[caption={This is a literal C++}, label={lst:cpp1}, language=c++, style=customcpp]
+#include <iostream>
+#include <vector>
+#include <cmath>
+#include <stdexcept>
+
+// A sample class to demonstrate properties, methods, and control flow
+class MyClass {
+private:
+    int value; // Private property
+
+public:
+    // Constructor
+    MyClass(int val = 0) : value(val) {}
+
+    // Getter
+    int getValue() const {
+        return value;
+    }
+
+    // Method to perform calculations
+    std::vector<double> calculate(int n) const {
+        if (n <= 0) {
+            throw std::invalid_argument("n must be greater than 0");
+        }
+
+        std::vector<double> result(n);
+        for (int i = 0; i < n; ++i) {
+            if (i % 2 == 0) {
+                result[i] = std::sqrt(i + value); // Square root for even indices
+            } else {
+                result[i] = std::pow(i, 2); // Square for odd indices
+            }
+        }
+        return result;
+    }
+};
+
+int main() {
+    try {
+        MyClass obj(10);
+        std::cout << "Value: " << obj.getValue() << std::endl;
+
+        auto results = obj.calculate(5);
+        std::cout << "Results: ";
+        for (const auto& val : results) {
+            std::cout << val << " ";
+        }
+        std::cout << std::endl;
+    } catch (const std::exception& e) {
+        std::cerr << "Error: " << e.what() << std::endl;
+    }
+
+    return 0;
+}
+\end{lstlisting}
+
+\lstinputlisting[caption={This is a C++ code from file}, label={lst:cpp2}, language=c++, style=customcpp]{exampleCpp.cpp} % c++
+
+
+\end{document}
