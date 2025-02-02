@@ -1125,6 +1125,31 @@ snippet bashh "bash terminal" wA
 $0
 endsnippet
 
+snippet vhdll "vhdl code" wA
+% ++++++++++++++++++++++++++VHDL local config begin++++++++++++++++++++++++++
+% Must placed below the global settings
+% Custom colors for VHDL only
+\usepackage{textcomp}
+\definecolor{emph1purple}{RGB}{128, 0, 128}
+\definecolor{emph2red}{RGB}{200, 20, 0}
+\colorlet{keywordblue}{blue!100!black!80}
+% this will override the global settings
+\lstdefinestyle{customvhdl}{
+	language = VHDL,
+	emph = {std_logic, STD_LOGIC, std_logic_vector, STD_LOGIC_VECTOR, std_logic_1164, STD_LOGIC_1164}, % Custom highlighting
+	emphstyle = \color{emph1purple},  % Highlighted words in pink
+	emph={[2]XNOR, xnor, xor, XOR, nand, NAND, nor, NOR, not, NOT, and, AND, or, OR}, % Custom highlighting
+	emphstyle = {[2]\color{emph2red}},  % Highlighted words in green
+	keywordstyle = \color{keywordblue},
+	morecomment=[l]{--},
+	morekeywords={
+		library, LIBRARY, use, USE, all, ALL, entity, ENTITY, is, IS, port, PORT, map, MAP, in, IN, out, OUT, end, END, architecture, ARCHITECTURE, of, OF, begin, BEGIN, signal, SIGNAL
+	}
+}
+% ++++++++++++++++++++++++++++VHDL local config end++++++++++++++++++++++++++++
+$0
+endsnippet
+
 
 
 snippet codematt "insert matlab code" wA
@@ -1163,8 +1188,14 @@ ${1}
 \end{lstlisting}$0
 endsnippet
 
+snippet codevhdll "insert vhdl code" wA
+\lstinputlisting[caption={${2}}, label={lst:${3}}, language=VHDL, style=customvhdl]{${1}} % vhdl
 
-
+% literal vhdl code
+\begin{lstlisting}[caption={${2}}, label={lst:${3}}, language=VHDL, style=customvhdl]
+${1}
+\end{lstlisting}$0
+endsnippet
 
 
 

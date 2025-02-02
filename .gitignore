@@ -1,2 +1,3 @@
 # Ignore all *.synctex.gz files
 *.synctex.gz
+.DS_Store

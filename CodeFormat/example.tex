@@ -102,6 +102,29 @@
 }
 % +++++++++++++++++++++++++++C++ local config end+++++++++++++++++++++++++++
 
+% ++++++++++++++++++++++++++VHDL local config begin++++++++++++++++++++++++++
+% Must placed below the global settings
+% Custom colors for VHDL only
+\usepackage{textcomp}
+\definecolor{emph1purple}{RGB}{128, 0, 128}
+\definecolor{emph2red}{RGB}{200, 20, 0}
+\colorlet{keywordblue}{blue!100!black!80}
+% this will override the global settings
+\lstdefinestyle{customvhdl}{
+    language = VHDL,
+    emph = {std_logic, STD_LOGIC, std_logic_vector, STD_LOGIC_VECTOR, std_logic_1164, STD_LOGIC_1164}, % Custom highlighting
+    emphstyle = \color{emph1purple},  % Highlighted words in pink
+    emph={[2]XNOR, xnor, xor, XOR, nand, NAND, nor, NOR, not, NOT, and, AND, or, OR}, % Custom highlighting
+    emphstyle = {[2]\color{emph2red}},  % Highlighted words in green
+    keywordstyle = \color{keywordblue},
+    morecomment=[l]{--},
+    morekeywords={
+        library, LIBRARY, use, USE, all, ALL, entity, ENTITY, is, IS, port, PORT, map, MAP, in, IN, out, OUT, end, END, architecture, ARCHITECTURE, of, OF, begin, BEGIN, signal, SIGNAL
+    }
+}
+% ++++++++++++++++++++++++++++VHDL local config end++++++++++++++++++++++++++++
+
+
 
 \begin{document}
 \maketitle
@@ -258,6 +281,40 @@ int main() {
 \end{lstlisting}
 
 \lstinputlisting[caption={This is a C++ code from file}, label={lst:cpp2}, language=c++, style=customcpp]{exampleCpp.cpp} % c++
+
+\section{VHDL highlighting}
+
+% literal vhdl code
+\begin{lstlisting}[caption={This is a literal VHDL}, label={lst:vhdl1}, language=VHDL, style=customvhdl]
+-- Dff.vhdl
+LIBRARY ieee;
+USE ieee.std_logic_1164.all;
+
+entity Dff is
+    port (
+        D   : in std_logic;  -- Data input
+        clk : in std_logic;  -- Clock input
+        Q   : out std_logic  -- Output
+    );
+end Dff;
+
+architecture Behavioral of Dff is
+    signal Q_internal : std_logic := '0';  -- Internal signal for flip-flop state
+begin
+    process(clk)
+    begin
+        if rising_edge(clk) then
+            Q_internal <= D;  -- Update internal state on clock's rising edge
+        end if;
+    end process;
+
+    Q <= Q_internal;  -- Assign internal state to output
+end Behavioral;
+\end{lstlisting}
+
+\lstinputlisting[caption={This is a VHDL code from file}, label={lst:vhdl2}, language=VHDL, style=customvhdl]{exampleVHDL.vhdl} % vhdl
+
+
 
 
 \end{document}
