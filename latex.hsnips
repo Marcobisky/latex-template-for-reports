@@ -280,6 +280,14 @@ snippet CC "C" iAm
 \mathbb{C}
 endsnippet
 
+snippet FF "F" iAm
+\mathbb{F}
+endsnippet
+
+snippet SS "S" iAm
+\mathbb{S}
+endsnippet
+
 snippet s.t. "such that" iAm
 \text{s.t. }
 endsnippet
@@ -689,7 +697,7 @@ endsnippet
 
 priority 200
 snippet norm iAm
-\left\| ${1} \right\|$2
+\lVert ${1} \rVert$2
 endsnippet
 
 # == Snippet ==
@@ -1234,7 +1242,28 @@ snippet twofiguree "two side by side figures" wA
         \caption{}
         \label{fig:}
 	\end{minipage}
-\end{figure}
+\end{figure}$0
+endsnippet
+
+snippet subfiguree "two side by side subfigures" wA
+\begin{figure}[h!]
+    \centering
+    \begin{subfigure}{.49\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{${1}}
+        \caption{}
+        \label{fig:}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{.49\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{${2}}
+        \caption{}
+        \label{fig:}
+    \end{subfigure}
+    \caption{}
+    \label{fig:}
+\end{figure}$0
 endsnippet
 
 snippet referr "begin thebibliography" wA

@@ -280,6 +280,14 @@ snippet CC "C" iAm
 \mathbb{C}
 endsnippet
 
+snippet FF "F" iAm
+\mathbb{F}
+endsnippet
+
+snippet SS "S" iAm
+\mathbb{S}
+endsnippet
+
 # ==== Dynamic Operation ====
 
 priority 100
@@ -685,7 +693,7 @@ endsnippet
 
 priority 200
 snippet norm iAm
-\left\| ${1} \right\|$2
+\lVert ${1} \rVert$2
 endsnippet
 
 # == Snippet ==
@@ -950,7 +958,7 @@ endsnippet
 # ==== Dynamic Matrix ====
 
 priority 300
-snippet `(b|p|v)mata([1-9])` "bmatrix" iiAm
+snippet `(b|p|v)mata([1-9])` "bmatrix all" iiAm
 \\begin{``rv = m[1]``matrix}``
 	let len = m[2];
 	let results = "";
@@ -1004,4 +1012,47 @@ snippet `table(\d)(\d)` "create table with rows and columns" wA
 ``
 rv = createTable(m[1], m[2]);
 ``
+endsnippet
+
+
+
+# == For quarto markdown ==
+
+snippet calll "callout" wA
+<!-- ----------------------------------------- -->
+::: {.callout-tip icon=false}
+## ${1}
+::: {#def-${2} .callout-def}
+${3}
+:::
+:::
+<!-- ----------------------------------------- -->
+$0
+endsnippet
+
+snippet soll "solution" wA
+<!-- ----------------------------------------- -->
+::: {.callout-warning icon=false collapse=true}
+## One-line Solution
+${1}
+:::
+<!-- ----------------------------------------- -->
+$0
+endsnippet
+
+snippet notee "note" wA
+<!-- ----------------------------------------- -->
+::: {.callout-note icon=true collapse=true}
+## Title
+${1}
+:::
+<!-- ----------------------------------------- -->
+$0
+endsnippet
+
+snippet marginn "write in margin" wA
+::: {.column-margin}
+${1}
+:::
+$0
 endsnippet
